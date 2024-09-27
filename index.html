@@ -124,10 +124,9 @@
             position: relative;
         }
 
-        .file-list .remove-file {
-            position: absolute;
-            top: 2px;
-            right: 5px;
+        .remove-file {
+            font-size: 14px; /* Match this to the file name font size */
+            margin-left: 5px; /* Add spacing between text and remove button */
             cursor: pointer;
             color: #ff0364;
         }
@@ -226,19 +225,19 @@
                 // Create the remove button
                 const removeButton = document.createElement('span');
                 removeButton.textContent = '×';
-                removeButton.className = 'remove-file';
+                removeButton.className = 'remove-file'; // This class now applies the styling
                 removeButton.onclick = function() {
-                    // Remove the file entry and update the selectedFiles array
                     fileBox.remove();
                     selectedFiles = selectedFiles.filter(f => f.name !== file.name);
                 };
 
-                fileBox.appendChild(removeButton); // Append the remove button to the file box
-                fileListDisplay.appendChild(fileBox); // Append to the file-list container
+                // Append the remove button to the file box
+                fileBox.appendChild(removeButton);
+                // Append the file box to the file-list container
+                fileListDisplay.appendChild(fileBox);
             }
         });
     }
 </script>
-
 </body>
 </html>
