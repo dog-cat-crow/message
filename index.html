@@ -18,19 +18,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ensure full height */
-            overflow: auto; /* Allow overflow if needed */
+            min-height: 100vh;
+            overflow: auto;
         }
 
         .container {
-            width: 100%; /* Make container responsive */
-            max-width: 600px; /* Max width for larger screens */
-            padding: 15px; /* Padding for the container */
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column; /* Stack elements vertically */
+            flex-direction: column;
         }
 
         .intro-text {
@@ -38,8 +38,8 @@
             margin-bottom: 20px;
             text-align: center;
             line-height: 1.5;
-            padding-top: 25px; /* Padding from the top */
-            overflow-wrap: break-word; /* Break long words */
+            padding-top: 25px;
+            overflow-wrap: break-word;
         }
 
         label {
@@ -53,13 +53,14 @@
         }
 
         .custom-file-upload {
-            display: inline-flex; /* Use inline-flex to align icon and text */
-            align-items: center; /* Center the icon and text vertically */
+            display: inline-flex; 
+            align-items: center; 
             padding: 10px;
             cursor: pointer;
             border: 1px solid #ccc;
             border-radius: 4px;
-            background-color: #fff; /* Background color for visibility */
+            background-color: #fff;
+            margin-bottom: 10px;
         }
 
         input, textarea {
@@ -72,7 +73,7 @@
         }
 
         textarea {
-            height: auto; /* Remove fixed height to allow expansion */
+            height: auto;
         }
 
         .two-line {
@@ -122,7 +123,7 @@
             font-size: 14px;
             color: #555;
             white-space: nowrap;
-            position: relative; /* For positioning the close button */
+            position: relative;
         }
 
         .file-list .remove-file {
@@ -130,19 +131,19 @@
             top: 2px;
             right: 5px;
             cursor: pointer;
-            color: #ff0364; /* Cross color */
+            color: #ff0364;
         }
 
         @media (max-width: 600px) {
             .intro-text {
-                font-size: 1.2rem; /* Adjust font size for mobile */
-                padding: 0 10px; /* Ensure padding on smaller screens */
-                line-height: 1.4; /* Slightly increase line height for readability */
+                font-size: 1.2rem;
+                padding: 0 10px;
+                line-height: 1.4;
             }
 
             button {
-                padding: 15px 20px; /* Increase button padding for touch */
-                font-size: 18px; /* Slightly larger font size */
+                padding: 15px 20px;
+                font-size: 18px;
             }
         }
     </style>
@@ -163,9 +164,9 @@
         <input id="contact" class="two-line" type="text" name="contact">
 
         <div class="file-upload">
+            <p class="small-text">Upload files (Optional)</p>
             <label for="file" class="custom-file-upload">
-                <img src="path/to/your/icon.png" alt="Upload Icon" style="width: 20px; height: 20px; vertical-align: middle;">
-                Choose files
+                <span>Choose files</span>
             </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
             <p class="small-text">Maximum file size: 25 MB</p>
@@ -186,7 +187,6 @@
         const fileInput = document.getElementById('file');
         const fileListDisplay = document.getElementById('file-list');
         const files = fileInput.files;
-        fileListDisplay.innerHTML = ''; // Clear previous list
 
         // Loop through all selected files
         Array.from(files).forEach(file => {
