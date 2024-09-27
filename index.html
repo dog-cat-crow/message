@@ -93,6 +93,23 @@
             background-color: #e50358;
         }
 
+        .file-list {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .file-list div {
+            background-color: #fff4c5;
+            padding: 8px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #555;
+            white-space: nowrap;
+        }
+
         @media (max-width: 600px) {
             .intro-text {
                 font-size: 1.2rem; /* Adjust font size for mobile */
@@ -123,8 +140,10 @@
 
         <div class="file-upload">
             <label for="file">Please Upload Any Files here (Optional)</label>
-            <input id="file" type="file" name="file" accept="*/*" onchange="validateFile()">
+            <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
             <p class="small-text">Maximum file size: 25 MB</p>
+            <!-- File list display -->
+            <div id="file-list" class="file-list"></div>
         </div>
 
         <button type="submit">SUBMIT</button>
@@ -132,13 +151,27 @@
 </div>
 
 <script>
-    function validateFile() {
+    function validateFile(file) {
+        return file.size <= 25 * 1024 * 1024; // 25 MB size check
+    }
+
+    function displayFiles() {
         const fileInput = document.getElementById('file');
-        const file = fileInput.files[0];
-        if (file && file.size > 25 * 1024 * 1024) {
-            alert("Please upload a file smaller than 25 MB");
-            fileInput.value = ''; // Clear the file input
-        }
+        const fileListDisplay = document.getElementById('file-list');
+        const files = fileInput.files;
+        fileListDisplay.innerHTML = ''; // Clear previous list
+
+        // Loop through all selected files
+        Array.from(files).forEach(file => {
+            if (validateFile(file)) {
+                // Create a new div for each file
+                const fileBox = document.createElement('div');
+                fileBox.textContent = file.name; // Display file name
+                fileListDisplay.appendChild(fileBox); // Append to the file-list container
+            } else {
+                alert("File " + file.name + " exceeds 25 MB and won't be uploaded.");
+            }
+        });
     }
 </script>
 
