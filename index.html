@@ -18,19 +18,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ensure full height */
-            overflow: auto; /* Allow overflow if needed */
+            min-height: 100vh;
+            overflow: auto;
         }
 
         .container {
-            width: 100%; /* Make container responsive */
-            max-width: 600px; /* Max width for larger screens */
-            padding: 15px; /* Padding for the container */
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column; /* Stack elements vertically */
+            flex-direction: column;
         }
 
         .intro-text {
@@ -38,8 +38,8 @@
             margin-bottom: 20px;
             text-align: center;
             line-height: 1.5;
-            padding-top: 25px; /* Padding from the top */
-            overflow-wrap: break-word; /* Break long words */
+            padding-top: 25px;
+            overflow-wrap: break-word;
         }
 
         label {
@@ -49,32 +49,32 @@
         }
 
         input[type="file"] {
-            display: none; /* Hide the default file input */
+            display: none;
         }
 
         .custom-file-upload {
-            display: inline-flex; /* Use inline-flex to align text */
-            align-items: center; /* Center the text vertically */
-            padding: 4px; /* Smaller padding for the button */
+            display: inline-flex;
+            align-items: center;
+            padding: 5px; /* Smaller button */
             cursor: pointer;
             border: 1px solid #ccc;
             border-radius: 4px;
-            background-color: #fff; /* Background color for visibility */
-            margin-bottom: 10px; /* Space below the upload button */
+            background-color: #fff;
+            margin-bottom: 10px;
         }
 
         input, textarea {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px; /* Reduced margin for compactness */
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
 
         textarea {
-            height: auto; /* Remove fixed height to allow expansion */
-            resize: vertical; /* Allow vertical resize */
+            height: auto;
+            resize: vertical;
         }
 
         .file-upload {
@@ -93,7 +93,7 @@
         button {
             background-color: #ff0364;
             color: white;
-            padding: 10px 15px; /* Adjusted button padding */
+            padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -120,7 +120,7 @@
             font-size: 14px;
             color: #555;
             white-space: nowrap;
-            position: relative; /* For positioning the close button */
+            position: relative;
         }
 
         .file-list .remove-file {
@@ -128,19 +128,19 @@
             top: 2px;
             right: 5px;
             cursor: pointer;
-            color: #ff0364; /* Cross color */
+            color: #ff0364;
         }
 
         @media (max-width: 600px) {
             .intro-text {
-                font-size: 1rem; /* Adjust font size for mobile */
-                padding: 0 10px; /* Ensure padding on smaller screens */
-                line-height: 1.4; /* Slightly increase line height for readability */
+                font-size: 1rem;
+                padding: 0 10px;
+                line-height: 1.4;
             }
 
             button {
-                padding: 10px; /* Adjust button padding for smaller devices */
-                font-size: 16px; /* Consistent font size */
+                padding: 10px;
+                font-size: 16px;
             }
         }
     </style>
@@ -161,14 +161,12 @@
         <input id="contact" class="two-line" type="text" name="contact">
 
         <div class="file-upload">
-            <label>Upload Files (Optional)</label> <!-- Added label for Upload Files -->
+            <label for="file">Upload Files (Optional)</label>
             <label for="file" class="custom-file-upload">
                 Choose files
             </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
-            <p class="small-text">Maximum size per file: 25 MB<br>
-            Maximum number of files: 10<br>
-            Maximum size of total files: 100 MB</p> <!-- Updated text with line breaks -->
+            <p class="small-text">Maximum size per file: 25 MB<br>Maximum number of files: 10<br>Maximum size of total files: 100 MB</p>
             <p class="small-text">Selected files:</p>
             <div id="file-list" class="file-list"></div>
         </div>
@@ -178,8 +176,6 @@
 </div>
 
 <script>
-    let alertCount = 0; // To keep track of how many alerts have been shown
-
     function validateFile(file) {
         return file.size <= 25 * 1024 * 1024; // 25 MB size check
     }
@@ -200,14 +196,15 @@
             return;
         }
 
-        if (totalSize > 100 * 1024 * 1024) { // 100 MB total size check
+        if (totalSize > 100 * 1024 * 1024) {
             alert("Oh no!\nThe total size of files cannot exceed 100 MB.\nPlease select smaller files.\nI know, I'm rude.\nThat's it.");
             return;
         }
 
-        // Loop through all selected files
         Array.from(files).forEach(file => {
-            if (validateFile(file)) {
+            if (!validateFile(file)) {
+                alert("Hey Sweetheart!\nI'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.\nThank you");
+            } else {
                 // Create a new div for each file
                 const fileBox = document.createElement('div');
                 fileBox.textContent = file.name; // Display file name
@@ -222,14 +219,6 @@
 
                 fileBox.appendChild(removeButton); // Append the remove button to the file box
                 fileListDisplay.appendChild(fileBox); // Append to the file-list container
-            } else {
-                // Custom messages for 25 MB limit
-                if (alertCount === 0) {
-                    alert("Hey Sweetheart!\nI'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.\nThank you");
-                } else if (alertCount === 1) {
-                    alert("Hey Sweetie!\nI'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.\nThanks");
-                }
-                alertCount++; // Increment the alert counter
             }
         });
     }
