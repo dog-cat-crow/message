@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Form Submission</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box; /* Ensure padding and borders don't affect total width/height */
+        }
+
         body {
             background-color: lightgray;
             font-family: 'Poppins', sans-serif;
@@ -17,8 +21,9 @@
             align-items: center;
             height: 100vh;
         }
+
         .container {
-            width: 100%;
+            width: 90%; /* Adjust width for responsiveness */
             max-width: 600px;
             padding: 20px;
             background-color: white;
@@ -26,16 +31,23 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
         }
+
         .intro-text {
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
+            overflow: hidden; /* Prevent overflow */
+            white-space: normal; /* Allow text to wrap */
+            line-height: 1.5; /* Improve readability */
+            padding: 0 10px; /* Add padding for smaller screens */
         }
+
         label {
             font-weight: bold;
             display: block;
             margin-bottom: 10px;
         }
+
         input, textarea {
             width: 100%;
             padding: 10px;
@@ -44,23 +56,28 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         textarea {
-            height: 150px;
+            height: auto; /* Remove fixed height to allow expansion */
         }
+
         .two-line {
             height: 50px;
         }
+
         .file-upload {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             margin-bottom: 20px;
         }
+
         .small-text {
             font-size: 12px;
             color: #555;
             margin-bottom: 5px;
         }
+
         button {
             background-color: #ff0364;
             color: white;
@@ -71,8 +88,21 @@
             font-weight: bold;
             font-size: 16px;
         }
+
         button:hover {
             background-color: #e50358;
+        }
+
+        @media (max-width: 600px) {
+            .intro-text {
+                font-size: 1.2rem; /* Adjust font size for mobile */
+                padding: 0 10px; /* Ensure padding on smaller screens */
+            }
+
+            button {
+                padding: 15px 20px; /* Increase button padding for touch */
+                font-size: 18px; /* Slightly larger font size */
+            }
         }
     </style>
 </head>
