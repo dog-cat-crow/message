@@ -4,41 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Form Submission</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
-            box-sizing: border-box; /* Ensure padding and borders don't affect total width/height */
+            box-sizing: border-box;
         }
 
         body {
             background-color: lightgray;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px; /* Adjusted padding for body */
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Ensure full height */
+            overflow: auto; /* Allow overflow if needed */
         }
 
         .container {
-            width: 90%; /* Adjust width for responsiveness */
-            max-width: 600px;
-            padding: 15px; /* Uniform padding for container */
+            width: 100%; /* Make container responsive */
+            max-width: 600px; /* Max width for larger screens */
+            padding: 15px; /* Padding for the container */
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
         }
 
         .intro-text {
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
-            line-height: 1.5; /* Improve readability */
-            padding-top: 25px; /* 25px padding from the top */
-            overflow-wrap: break-word; /* Ensure long words break correctly */
+            line-height: 1.5;
+            padding-top: 25px; /* Padding from the top */
+            overflow-wrap: break-word; /* Break long words */
         }
 
         label {
@@ -52,7 +53,8 @@
         }
 
         .custom-file-upload {
-            display: inline-block;
+            display: inline-flex; /* Use inline-flex to align icon and text */
+            align-items: center; /* Center the icon and text vertically */
             padding: 10px;
             cursor: pointer;
             border: 1px solid #ccc;
@@ -161,7 +163,10 @@
         <input id="contact" class="two-line" type="text" name="contact">
 
         <div class="file-upload">
-            <label for="file" class="custom-file-upload">Choose files</label>
+            <label for="file" class="custom-file-upload">
+                <img src="path/to/your/icon.png" alt="Upload Icon" style="width: 20px; height: 20px; vertical-align: middle;">
+                Choose files
+            </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
             <p class="small-text">Maximum file size: 25 MB</p>
             <p class="small-text">Selected files:</p>
