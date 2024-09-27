@@ -15,7 +15,7 @@
             background-color: lightgray;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px; /* Added padding to the body */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,7 +29,6 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
         }
 
         .intro-text {
@@ -78,6 +77,12 @@
             margin-bottom: 5px;
         }
 
+        .selected-files-label {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
         button {
             background-color: #ff0364;
             color: white;
@@ -107,7 +112,15 @@
             border-radius: 12px;
             font-size: 14px;
             color: #555;
-            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-list div .remove-file {
+            margin-left: 10px;
+            font-weight: bold;
+            color: red;
+            cursor: pointer;
         }
 
         @media (max-width: 600px) {
@@ -142,7 +155,7 @@
             <label for="file">Please Upload Any Files here (Optional)</label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
             <p class="small-text">Maximum file size: 25 MB</p>
-            <!-- File list display -->
+            <p class="selected-files-label">Selected files:</p>
             <div id="file-list" class="file-list"></div>
         </div>
 
@@ -162,16 +175,40 @@
         fileListDisplay.innerHTML = ''; // Clear previous list
 
         // Loop through all selected files
-        Array.from(files).forEach(file => {
+        Array.from(files).forEach((file, index) => {
             if (validateFile(file)) {
                 // Create a new div for each file
                 const fileBox = document.createElement('div');
                 fileBox.textContent = file.name; // Display file name
+
+                // Create a remove button
+                const removeBtn = document.createElement('span');
+                removeBtn.textContent = '×';
+                removeBtn.classList.add('remove-file');
+                removeBtn.onclick = () => removeFile(index);
+
+                fileBox.appendChild(removeBtn); // Append remove button to file box
                 fileListDisplay.appendChild(fileBox); // Append to the file-list container
             } else {
                 alert("File " + file.name + " exceeds 25 MB and won't be uploaded.");
             }
         });
+    }
+
+    function removeFile(index) {
+        const fileInput = document.getElementById('file');
+        const dt = new DataTransfer();
+        const files = fileInput.files;
+
+        // Rebuild the file list, skipping the removed file
+        Array.from(files).forEach((file, i) => {
+            if (i !== index) {
+                dt.items.add(file);
+            }
+        });
+
+        fileInput.files = dt.files; // Update the file input with new file list
+        displayFiles(); // Refresh the displayed list
     }
 </script>
 
