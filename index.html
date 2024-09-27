@@ -53,8 +53,8 @@
         }
 
         .custom-file-upload {
-            display: inline-flex; /* Use inline-flex to align icon and text */
-            align-items: center; /* Center the icon and text vertically */
+            display: inline-flex; /* Use inline-flex to align text */
+            align-items: center; /* Center the text vertically */
             padding: 8px; /* Slightly smaller padding */
             cursor: pointer;
             border: 1px solid #ccc;
@@ -162,13 +162,10 @@
 
         <div class="file-upload">
             <label for="file" class="custom-file-upload">
-                <img src="path/to/your/icon.png" alt="Upload Icon" style="width: 20px; height: 20px; vertical-align: middle;">
                 Choose files
             </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
-            <p class="small-text">Maximum size per file: 25 MB</p>
-            <p class="small-text">Maximum number of files: 10</p>
-            <p class="small-text"><strong>Maximum size of total files: 100 MB</strong></p>
+            <p class="small-text">Maximum size per file: 25 MB, maximum number of files: 10, maximum size of total files: 100 MB</p>
             <p class="small-text">Selected files:</p>
             <div id="file-list" class="file-list"></div>
         </div>
