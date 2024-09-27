@@ -175,19 +175,6 @@
 </div>
 
 <script>
-    // Random words for alerts
-    const firstAlertX = "Hey Sweetheart!";
-    const firstAlertZ = "Thank you";
-    const remainingRandomSentences = [
-        "I'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.", 
-        "I hope you're not angry."
-    ];
-    const otherRandomSentences = [
-        "Hello Cutie!", 
-        "Thanks", 
-        "I hope you're not angry."
-    ];
-
     function validateFile(file) {
         return file.size <= 25 * 1024 * 1024; // 25 MB size check
     }
@@ -205,12 +192,12 @@
         }
 
         if (files.length > 10) {
-            alert(`${firstAlertX}\nBut you cannot upload more than 10 files. Please select fewer files.\n${firstAlertZ}`);
+            alert("My Bad Sweetie!\nBut you cannot upload more than 10 files. Please select fewer files.\nI know, I'm rude.");
             return;
         }
 
         if (totalSize > 100 * 1024 * 1024) { // 100 MB total size check
-            alert(`Oh no!\nThe total size of files cannot exceed 100 MB.\nPlease select smaller files.\nI know, I'm rude.\nThat's it`);
+            alert("Oh no!\nThe total size of files cannot exceed 100 MB.\nPlease select smaller files.\nI know, I'm rude.\nThat's it.");
             return;
         }
 
@@ -232,10 +219,14 @@
                 fileBox.appendChild(removeButton); // Append the remove button to the file box
                 fileListDisplay.appendChild(fileBox); // Append to the file-list container
             } else {
-                // Show first alert
-                alert(`${firstAlertX}\n${firstAlertZ}`);
-                // Show second alert with one of the remaining sentences
-                alert(remainingRandomSentences[Math.floor(Math.random() * remainingRandomSentences.length)]);
+                // Random messages for 25 MB limit
+                const xList = ["Hey Sweetheart!", "Hey Sweetie!", "Hello Cutie!"];
+                const zList = ["Thank you", "Thanks", "I hope you're not angry."];
+                
+                const x = xList[Math.floor(Math.random() * xList.length)];
+                const z = zList[Math.floor(Math.random() * zList.length)];
+
+                alert(`${x}\nI'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.\n${z}`);
             }
         });
     }
