@@ -55,7 +55,7 @@
         .custom-file-upload {
             display: inline-flex; /* Use inline-flex to align text */
             align-items: center; /* Center the text vertically */
-            padding: 8px; /* Slightly smaller padding */
+            padding: 4px; /* Smaller padding for the button */
             cursor: pointer;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -161,11 +161,14 @@
         <input id="contact" class="two-line" type="text" name="contact">
 
         <div class="file-upload">
+            <label>Upload Files (Optional)</label> <!-- Added label for Upload Files -->
             <label for="file" class="custom-file-upload">
                 Choose files
             </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
-            <p class="small-text">Maximum size per file: 25 MB, maximum number of files: 10, maximum size of total files: 100 MB</p>
+            <p class="small-text">Maximum size per file: 25 MB<br>
+            Maximum number of files: 10<br>
+            Maximum size of total files: 100 MB</p> <!-- Updated text with line breaks -->
             <p class="small-text">Selected files:</p>
             <div id="file-list" class="file-list"></div>
         </div>
@@ -185,8 +188,7 @@
         const fileInput = document.getElementById('file');
         const fileListDisplay = document.getElementById('file-list');
         const files = fileInput.files;
-        fileListDisplay.innerHTML = ''; // Clear previous list
-
+        
         // Check total files and total size
         let totalSize = 0;
         for (let i = 0; i < files.length; i++) {
