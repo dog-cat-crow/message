@@ -15,7 +15,7 @@
             background-color: lightgray;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 20px; /* Adjusted padding for body */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,28 +25,39 @@
         .container {
             width: 90%; /* Adjust width for responsiveness */
             max-width: 600px;
-            padding: 15px; /* Updated padding to 15px for the whole white display area */
+            padding: 15px; /* Uniform padding for container */
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
-            flex-grow: 1; /* Ensure it grows with content */
         }
 
         .intro-text {
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
-            overflow-wrap: break-word; /* Break long words */
-            word-wrap: break-word;     /* Ensure text doesn't overflow */
-            line-height: 1.5;          /* Improve readability */
-            padding: 10px;
+            line-height: 1.5; /* Improve readability */
+            padding-top: 25px; /* 25px padding from the top */
+            overflow-wrap: break-word; /* Ensure long words break correctly */
         }
 
         label {
             font-weight: bold;
             display: block;
             margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            display: none; /* Hide the default file input */
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff; /* Background color for visibility */
         }
 
         input, textarea {
@@ -79,12 +90,6 @@
             margin-bottom: 5px;
         }
 
-        .selected-files-label {
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 5px;
-        }
-
         button {
             background-color: #ff0364;
             color: white;
@@ -114,21 +119,23 @@
             border-radius: 12px;
             font-size: 14px;
             color: #555;
-            display: flex;
-            align-items: center;
+            white-space: nowrap;
+            position: relative; /* For positioning the close button */
         }
 
-        .file-list div .remove-file {
-            margin-left: 10px;
-            font-weight: bold;
-            color: red;
+        .file-list .remove-file {
+            position: absolute;
+            top: 2px;
+            right: 5px;
             cursor: pointer;
+            color: #ff0364; /* Cross color */
         }
 
         @media (max-width: 600px) {
             .intro-text {
                 font-size: 1.2rem; /* Adjust font size for mobile */
                 padding: 0 10px; /* Ensure padding on smaller screens */
+                line-height: 1.4; /* Slightly increase line height for readability */
             }
 
             button {
@@ -154,10 +161,10 @@
         <input id="contact" class="two-line" type="text" name="contact">
 
         <div class="file-upload">
-            <label for="file">Please Upload Any Files here (Optional)</label>
+            <label for="file" class="custom-file-upload">Choose files</label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
             <p class="small-text">Maximum file size: 25 MB</p>
-            <p class="selected-files-label">Selected files:</p>
+            <p class="small-text">Selected files:</p>
             <div id="file-list" class="file-list"></div>
         </div>
 
@@ -177,40 +184,26 @@
         fileListDisplay.innerHTML = ''; // Clear previous list
 
         // Loop through all selected files
-        Array.from(files).forEach((file, index) => {
+        Array.from(files).forEach(file => {
             if (validateFile(file)) {
                 // Create a new div for each file
                 const fileBox = document.createElement('div');
                 fileBox.textContent = file.name; // Display file name
 
-                // Create a remove button
-                const removeBtn = document.createElement('span');
-                removeBtn.textContent = '×';
-                removeBtn.classList.add('remove-file');
-                removeBtn.onclick = () => removeFile(index);
+                // Create the remove button
+                const removeButton = document.createElement('span');
+                removeButton.textContent = '×';
+                removeButton.className = 'remove-file';
+                removeButton.onclick = function() {
+                    fileBox.remove(); // Remove the file entry
+                };
 
-                fileBox.appendChild(removeBtn); // Append remove button to file box
+                fileBox.appendChild(removeButton); // Append the remove button to the file box
                 fileListDisplay.appendChild(fileBox); // Append to the file-list container
             } else {
                 alert("File " + file.name + " exceeds 25 MB and won't be uploaded.");
             }
         });
-    }
-
-    function removeFile(index) {
-        const fileInput = document.getElementById('file');
-        const dt = new DataTransfer();
-        const files = fileInput.files;
-
-        // Rebuild the file list, skipping the removed file
-        Array.from(files).forEach((file, i) => {
-            if (i !== index) {
-                dt.items.add(file);
-            }
-        });
-
-        fileInput.files = dt.files; // Update the file input with new file list
-        displayFiles(); // Refresh the displayed list
     }
 </script>
 
