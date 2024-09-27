@@ -34,6 +34,13 @@
             flex-direction: column;
         }
 
+        .intro-board {
+            background-color: #b6abb8; /* Background color */
+            padding: 15px; /* Add padding for spacing */
+            border-radius: 8px; /* Rounded corners */
+            margin-bottom: 20px; /* Space below the rectangle */
+        }
+
         .intro-text {
             font-weight: bold;
             margin-bottom: 20px;
@@ -54,18 +61,17 @@
         }
 
         .custom-file-upload {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 8px; /* Adjust padding for a smaller button */
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #3b3b3b; /* Updated background color */
-    color: white; /* Updated text color */
-    margin-bottom: 10px;
-    font-size: 14px; /* Adjust font size if needed */
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px; /* Adjust padding for a smaller button */
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #3b3b3b; /* Updated background color */
+            color: white; /* Updated text color */
+            margin-bottom: 10px;
+            font-size: 14px; /* Adjust font size if needed */
         }
-
 
         input, textarea {
             width: 100%;
@@ -127,9 +133,10 @@
             position: relative;
         }
 
-        .remove-file {
-            font-size: 14px; /* Match this to the file name font size */
-            margin-left: 5px; /* Add spacing between text and remove button */
+        .file-list .remove-file {
+            position: absolute;
+            top: 2px;
+            right: 5px;
             cursor: pointer;
             color: #ff0364;
         }
@@ -151,10 +158,12 @@
 <body>
 
 <div class="container">
-    <p class="intro-text">
-        Hello, please type your message below. I'll see your message once you submit it here. 
-        A notification will be instantly received by me with the message you've submitted.
-    </p>
+    <div class="intro-board">
+        <p class="intro-text">
+            Hello, please type your message below. I'll see your message once you submit it here. 
+            A notification will be instantly received by me with the message you've submitted.
+        </p>
+    </div>
 
     <form action="https://formspree.io/f/mzzpnpoz" method="POST" enctype="multipart/form-data">
         <label for="message">Please type Your Message here (Required)</label>
@@ -228,19 +237,19 @@
                 // Create the remove button
                 const removeButton = document.createElement('span');
                 removeButton.textContent = '×';
-                removeButton.className = 'remove-file'; // This class now applies the styling
+                removeButton.className = 'remove-file';
                 removeButton.onclick = function() {
+                    // Remove the file entry and update the selectedFiles array
                     fileBox.remove();
                     selectedFiles = selectedFiles.filter(f => f.name !== file.name);
                 };
 
-                // Append the remove button to the file box
-                fileBox.appendChild(removeButton);
-                // Append the file box to the file-list container
-                fileListDisplay.appendChild(fileBox);
+                fileBox.appendChild(removeButton); // Append the remove button to the file box
+                fileListDisplay.appendChild(fileBox); // Append to the file-list container
             }
         });
     }
 </script>
+
 </body>
 </html>
