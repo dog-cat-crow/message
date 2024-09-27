@@ -14,31 +14,32 @@
             background-color: lightgray;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Ensure full height */
+            overflow: auto; /* Allow overflow if needed */
         }
 
         .container {
-            width: 90%;
-            max-width: 600px;
-            padding: 15px;
+            width: 100%; /* Make container responsive */
+            max-width: 600px; /* Max width for larger screens */
+            padding: 15px; /* Padding for the container */
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
         }
 
         .intro-text {
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
-            overflow: hidden;
-            white-space: normal;
             line-height: 1.5;
-            padding: 0 10px;
+            padding-top: 25px; /* Padding from the top */
+            overflow-wrap: break-word; /* Break long words */
         }
 
         label {
@@ -47,17 +48,33 @@
             margin-bottom: 10px;
         }
 
+        input[type="file"] {
+            display: none; /* Hide the default file input */
+        }
+
+        .custom-file-upload {
+            display: inline-flex; /* Use inline-flex to align icon and text */
+            align-items: center; /* Center the icon and text vertically */
+            padding: 8px; /* Slightly smaller padding */
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff; /* Background color for visibility */
+            margin-bottom: 10px; /* Space below the upload button */
+        }
+
         input, textarea {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Reduced margin for compactness */
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
 
-        .two-line {
-            height: 50px;
+        textarea {
+            height: auto; /* Remove fixed height to allow expansion */
+            resize: vertical; /* Allow vertical resize */
         }
 
         .file-upload {
@@ -76,7 +93,7 @@
         button {
             background-color: #ff0364;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 15px; /* Adjusted button padding */
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -103,17 +120,27 @@
             font-size: 14px;
             color: #555;
             white-space: nowrap;
+            position: relative; /* For positioning the close button */
+        }
+
+        .file-list .remove-file {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            cursor: pointer;
+            color: #ff0364; /* Cross color */
         }
 
         @media (max-width: 600px) {
             .intro-text {
-                font-size: 1.2rem;
-                padding: 0 10px;
+                font-size: 1rem; /* Adjust font size for mobile */
+                padding: 0 10px; /* Ensure padding on smaller screens */
+                line-height: 1.4; /* Slightly increase line height for readability */
             }
 
             button {
-                padding: 15px 20px;
-                font-size: 18px;
+                padding: 10px; /* Adjust button padding for smaller devices */
+                font-size: 16px; /* Consistent font size */
             }
         }
     </style>
@@ -134,12 +161,15 @@
         <input id="contact" class="two-line" type="text" name="contact">
 
         <div class="file-upload">
-            <label for="file" style="font-weight: bold;">Upload Files (Optional)</label>
-            <p class="small-text">Maximum size per file: 25 MB<br>
-            <strong>Maximum number of files: 10</strong><br>
-            <strong>Maximum size of total files: 100 MB</strong></p>
+            <label for="file" class="custom-file-upload">
+                <img src="path/to/your/icon.png" alt="Upload Icon" style="width: 20px; height: 20px; vertical-align: middle;">
+                Choose files
+            </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
-            <p class="small-text">Maximum file size: 25 MB</p>
+            <p class="small-text">Maximum size per file: 25 MB</p>
+            <p class="small-text">Maximum number of files: 10</p>
+            <p class="small-text"><strong>Maximum size of total files: 100 MB</strong></p>
+            <p class="small-text">Selected files:</p>
             <div id="file-list" class="file-list"></div>
         </div>
 
@@ -148,12 +178,8 @@
 </div>
 
 <script>
-    const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
-    const MAX_FILES = 10; // Maximum number of files
-    const MAX_TOTAL_SIZE = 100 * 1024 * 1024; // 100 MB
-
     function validateFile(file) {
-        return file.size <= MAX_FILE_SIZE;
+        return file.size <= 25 * 1024 * 1024; // 25 MB size check
     }
 
     function displayFiles() {
@@ -162,23 +188,41 @@
         const files = fileInput.files;
         fileListDisplay.innerHTML = ''; // Clear previous list
 
+        // Check total files and total size
         let totalSize = 0;
+        for (let i = 0; i < files.length; i++) {
+            totalSize += files[i].size;
+        }
+
+        if (files.length > 10) {
+            alert("Hey, sweetheart! You can't upload more than 10 files. Please select fewer files.");
+            return;
+        }
+
+        if (totalSize > 100 * 1024 * 1024) { // 100 MB total size check
+            alert("Hey, sweetheart! The total size of your files exceeds 100 MB. Please select smaller files.");
+            return;
+        }
 
         // Loop through all selected files
         Array.from(files).forEach(file => {
-            totalSize += file.size; // Accumulate total size
-            if (validateFile(file) && files.length <= MAX_FILES && totalSize <= MAX_TOTAL_SIZE) {
+            if (validateFile(file)) {
+                // Create a new div for each file
                 const fileBox = document.createElement('div');
-                fileBox.textContent = file.name + " (" + (file.size / (1024 * 1024)).toFixed(2) + " MB)";
-                fileListDisplay.appendChild(fileBox);
+                fileBox.textContent = file.name; // Display file name
+
+                // Create the remove button
+                const removeButton = document.createElement('span');
+                removeButton.textContent = '×';
+                removeButton.className = 'remove-file';
+                removeButton.onclick = function() {
+                    fileBox.remove(); // Remove the file entry
+                };
+
+                fileBox.appendChild(removeButton); // Append the remove button to the file box
+                fileListDisplay.appendChild(fileBox); // Append to the file-list container
             } else {
-                if (file.size > MAX_FILE_SIZE) {
-                    alert("Hey, sweetheart! I'm sorry but you cannot upload files larger than 25 MB. Please upload a smaller file. Thank you! Your file " + file.name + " is of " + (file.size / (1024 * 1024)).toFixed(2) + " MB.");
-                } else if (files.length > MAX_FILES) {
-                    alert("Hey, sweetheart! You cannot upload more than 10 files. Please select fewer files.");
-                } else if (totalSize > MAX_TOTAL_SIZE) {
-                    alert("Hey, sweetheart! The total size of all files cannot exceed 100 MB. Please select smaller files.");
-                }
+                alert("Hey, sweetheart! I'm sorry but you cannot upload files larger than 25 MB. Your file " + file.name + " is " + (file.size / (1024 * 1024)).toFixed(2) + " MB. Please select something smaller.");
             }
         });
     }
