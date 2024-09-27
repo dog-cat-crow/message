@@ -175,6 +175,8 @@
 </div>
 
 <script>
+    let alertCount = 0; // To keep track of how many alerts have been shown
+
     function validateFile(file) {
         return file.size <= 25 * 1024 * 1024; // 25 MB size check
     }
@@ -219,14 +221,13 @@
                 fileBox.appendChild(removeButton); // Append the remove button to the file box
                 fileListDisplay.appendChild(fileBox); // Append to the file-list container
             } else {
-                // Random messages for 25 MB limit
-                const xList = ["Hey Sweetheart!", "Hey Sweetie!", "Hello Cutie!"];
-                const zList = ["Thank you", "Thanks", "I hope you're not angry."];
-                
-                const x = xList[Math.floor(Math.random() * xList.length)];
-                const z = zList[Math.floor(Math.random() * zList.length)];
-
-                alert(`${x}\nI'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.\n${z}`);
+                // Custom messages for 25 MB limit
+                if (alertCount === 0) {
+                    alert("Hey Sweetheart!\nI'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.\nThank you");
+                } else if (alertCount === 1) {
+                    alert("Hey Sweetie!\nI'm sorry, but you cannot upload files larger than 25 MB. Please select something smaller.\nThanks");
+                }
+                alertCount++; // Increment the alert counter
             }
         });
     }
