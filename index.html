@@ -15,7 +15,7 @@
             background-color: lightgray;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px; /* Added padding to the body */
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,20 +25,22 @@
         .container {
             width: 90%; /* Adjust width for responsiveness */
             max-width: 600px;
-            padding: 20px;
+            padding: 15px; /* Updated padding to 15px for the whole white display area */
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            flex-grow: 1; /* Ensure it grows with content */
         }
 
         .intro-text {
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
-            overflow: hidden; /* Prevent overflow */
-            white-space: normal; /* Allow text to wrap */
-            line-height: 1.5; /* Improve readability */
-            padding: 0 10px; /* Add padding for smaller screens */
+            overflow-wrap: break-word; /* Break long words */
+            word-wrap: break-word;     /* Ensure text doesn't overflow */
+            line-height: 1.5;          /* Improve readability */
+            padding: 10px;
         }
 
         label {
