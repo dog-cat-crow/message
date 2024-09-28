@@ -280,8 +280,6 @@
     <script>
     const fileInput = document.getElementById('file');
     const customFileUpload = document.querySelector('.custom-file-upload');
-
-    // Flag to track if the dialog is currently open
     let isFileDialogOpen = false;
 
     // Function to open the file dialog
@@ -307,15 +305,7 @@
 
     // Event listener to reset the flag when files are selected
     fileInput.addEventListener('change', () => {
-        // Check if any files are selected
-        if (fileInput.files.length > 0) {
-            isFileDialogOpen = false; // Reset the flag immediately if files are selected
-        }
-    });
-
-    // Event listener for the dialog closure
-    fileInput.addEventListener('blur', () => {
-        isFileDialogOpen = false; // Reset the flag when the dialog is closed
+        isFileDialogOpen = false; // Reset the flag immediately if files are selected
     });
 </script>
 
