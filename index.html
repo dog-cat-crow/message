@@ -197,7 +197,7 @@
 
     function checkFileLimit() {
         const fileLabel = document.getElementById('file-label');
-        if (selectedFiles.length >= 10) {
+        if (selectedFiles.length > 10) {
             fileLabel.style.pointerEvents = 'none';
             fileLabel.style.backgroundColor = '#ccc'; // Disable the button visually
             fileLabel.innerText = 'Limit Reached'; // Update button text
