@@ -279,21 +279,30 @@
 
     <script>
     const fileInput = document.getElementById('file');
-    let isFileDialogOpen = false; // Flag to check if the dialog is open
+    const customFileUpload = document.querySelector('.custom-file-upload');
 
     // Function to open the file dialog
     function openFileDialog() {
-        if (isFileDialogOpen) return; // Prevent opening if already open
-        isFileDialogOpen = true; // Set the flag
-        fileInput.click(); // Programmatically open the file dialog
+        customFileUpload.style.pointerEvents = 'none'; // Disable the button
+        customFileUpload.style.opacity = '0.5'; // Change opacity to indicate it's disabled
+
+        // Open the file dialog
+        fileInput.click();
+
+        // Reset the button state after 2 seconds
+        setTimeout(() => {
+            customFileUpload.style.pointerEvents = 'auto'; // Re-enable the button
+            customFileUpload.style.opacity = '1'; // Reset opacity
+        }, 1400); //number = milliseconds
     }
 
     // Attach the openFileDialog function to the custom file upload label
-    document.querySelector('.custom-file-upload').addEventListener('click', openFileDialog);
+    customFileUpload.addEventListener('click', openFileDialog);
 
-    // Event listener to reset the flag when the file dialog is closed
+    // Reset the button state when files are selected or dialog is closed
     fileInput.addEventListener('change', () => {
-        isFileDialogOpen = false; // Reset the flag when files are selected or dialog is closed
+        customFileUpload.style.pointerEvents = 'auto'; // Re-enable the button
+        customFileUpload.style.opacity = '1'; // Reset opacity
     });
 </script>
 
