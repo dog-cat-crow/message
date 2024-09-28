@@ -186,38 +186,38 @@
         <button type="submit">SUBMIT</button>
     </form>
     <div id="popup" class="popup" style="display: none;">
-    <div class="popup-content">
-        <p id="popup-message"></p>
-        <button id="popup-button" style="background-color: #27cc18; color: white;">OKAY!</button>
+        <div class="popup-content">
+            <p id="popup-message"></p>
+            <button id="popup-button" style="background-color: #27cc18; color: white;">OKAY!</button>
+        </div>
     </div>
-</div>
 
-<style>
-    .popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
+    <style>
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-    .popup-content {
-        background-color: black;
-        padding: 20px;
-        border-radius: 8px;
-        text-align: center;
-    }
+        .popup-content {
+            background-color: black;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
 
-    .popup-content p {
-        color: white;
-        margin-bottom: 20px;
-    }
-</style>
+        .popup-content p {
+            color: white;
+            margin-bottom: 20px;
+        }
+    </style>
 
 </div>
 
@@ -300,18 +300,23 @@
         fileInput.value = ''; 
         checkFileLimit(); // Check file limit after displaying files
     }
-</script>
 
-    <script>
+    function showPopup(message) {
+        document.getElementById('popup-message').textContent = message;
+        document.getElementById('popup').style.display = 'flex';
+    }
+
+    document.getElementById('popup-button').onclick = function() {
+        document.getElementById('popup').style.display = 'none';
+    };
+
     document.getElementById('file').addEventListener('click', function(event) {
         if (selectedFiles.length >= 10) {
             showPopup("You cannot select more than 10 files.");
             event.preventDefault(); // Prevent the file selector from opening
         }
     });
-</script>
 
-    <script>
     const customFileUpload = document.querySelector('.custom-file-upload');
 
     customFileUpload.addEventListener('click', function() {
@@ -326,15 +331,6 @@
         }, 700); // 1400 milliseconds = 1.4 seconds
     });
 </script>
-    function showPopup(message) {
-    document.getElementById('popup-message').textContent = message;
-    document.getElementById('popup').style.display = 'flex';
-}
-
-document.getElementById('popup-button').onclick = function() {
-    document.getElementById('popup').style.display = 'none';
-};
-
 
 </body>
 </html>
