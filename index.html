@@ -277,6 +277,34 @@
     });
 </script>
 
+    <script>
+    const fileInput = document.getElementById('file');
+    let isFileDialogOpen = false; // Flag to check if the dialog is open
+
+    // Function to open the file dialog
+    function openFileDialog() {
+        if (isFileDialogOpen) return; // Prevent opening if already open
+        isFileDialogOpen = true; // Set the flag
+        fileInput.click(); // Programmatically open the file dialog
+
+        // Disable the button to prevent further clicks
+        const customFileUpload = document.querySelector('.custom-file-upload');
+        customFileUpload.style.pointerEvents = 'none'; // Disable pointer events
+        customFileUpload.style.opacity = '0.5'; // Change opacity to show it's disabled
+
+        // Add an event listener to re-enable the button when the file dialog closes
+        fileInput.addEventListener('change', () => {
+            // Re-enable the button after file selection or cancel
+            isFileDialogOpen = false; // Reset the flag
+            customFileUpload.style.pointerEvents = 'auto'; // Re-enable pointer events
+            customFileUpload.style.opacity = '1'; // Reset opacity
+        }, { once: true }); // Use { once: true } to ensure it only runs once
+    }
+
+    // Attach the openFileDialog function to the custom file upload label
+    document.querySelector('.custom-file-upload').addEventListener('click', openFileDialog);
+</script>
+
 
 </body>
 </html>
