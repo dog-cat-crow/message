@@ -281,8 +281,13 @@
     const fileInput = document.getElementById('file');
     const customFileUpload = document.querySelector('.custom-file-upload');
 
+    // Flag to track if the dialog is currently open
+    let isFileDialogOpen = false;
+
     // Function to open the file dialog
     function openFileDialog() {
+        if (isFileDialogOpen) return; // Prevent opening if already open
+        isFileDialogOpen = true; // Set the flag to indicate the dialog is open
         customFileUpload.style.pointerEvents = 'none'; // Disable the button
         customFileUpload.style.opacity = '0.5'; // Change opacity to indicate it's disabled
 
@@ -293,16 +298,24 @@
         setTimeout(() => {
             customFileUpload.style.pointerEvents = 'auto'; // Re-enable the button
             customFileUpload.style.opacity = '1'; // Reset opacity
-        }, 1400); //number = milliseconds
+            isFileDialogOpen = false; // Reset the flag after timeout
+        }, 2000); // 2000 milliseconds = 2 seconds
     }
 
     // Attach the openFileDialog function to the custom file upload label
     customFileUpload.addEventListener('click', openFileDialog);
 
-    // Reset the button state when files are selected or dialog is closed
+    // Event listener to reset the flag when files are selected
     fileInput.addEventListener('change', () => {
-        customFileUpload.style.pointerEvents = 'auto'; // Re-enable the button
-        customFileUpload.style.opacity = '1'; // Reset opacity
+        // Check if any files are selected
+        if (fileInput.files.length > 0) {
+            isFileDialogOpen = false; // Reset the flag immediately if files are selected
+        }
+    });
+
+    // Event listener for the dialog closure
+    fileInput.addEventListener('blur', () => {
+        isFileDialogOpen = false; // Reset the flag when the dialog is closed
     });
 </script>
 
