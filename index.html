@@ -141,42 +141,6 @@
             color: #ff0364;
         }
 
-        /* Popup Styles */
-        .popup {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
-        }
-
-        .popup-content {
-            background-color: #333; /* Dark background for content */
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-            text-align: center; /* Center text */
-            color: white; /* White text */
-            border-radius: 8px; /* Rounded corners */
-        }
-
-        .popup button {
-            background-color: #4CAF50; /* Green */
-            color: white; /* White text */
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .popup button:hover {
-            background-color: #45a049; /* Darker green on hover */
-        }
-
         @media (max-width: 600px) {
             .intro-text {
                 font-size: 1rem;
@@ -188,6 +152,45 @@
                 padding: 10px;
                 font-size: 16px;
             }
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8); /* Black background with transparency */
+            padding-top: 60px;
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+            color: black;
+        }
+
+        .popup button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: darkgreen;
         }
     </style>
 </head>
@@ -223,38 +226,25 @@
     </form>
 </div>
 
-<!-- Popup HTML -->
 <div id="popup" class="popup">
     <div class="popup-content">
         <p id="popup-message"></p>
-        <button id="popup-ok">OKAY</button>
+        <button onclick="closePopup()">OKAY</button>
     </div>
 </div>
 
 <script>
-    // Keeps track of the files already selected
     let selectedFiles = [];
 
     function validateFile(file) {
         return file.size <= 25 * 1024 * 1024; // 25 MB size check
     }
 
-    function showPopup(message) {
-        const popup = document.getElementById('popup');
-        const popupMessage = document.getElementById('popup-message');
-        popupMessage.textContent = message; // Set message
-        popup.style.display = 'block'; // Show popup
-    }
-
-    document.getElementById('popup-ok').addEventListener('click', function() {
-        document.getElementById('popup').style.display = 'none'; // Hide popup on click
-    });
-
     function checkFileLimit() {
         const fileInput = document.getElementById('file');
 
-        if (selectedFiles.length > 10) {
-            showPopup("Beware, Cutie!\nYou cannot select more than 10 files. Please try to remove some files.\nThank you!");
+        if (selectedFiles.length >= 10) {
+            showPopup("You cannot select more than 10 files.");
             fileInput.disabled = true; // Disable file input
         } else {
             fileInput.disabled = false; // Enable file input
@@ -286,34 +276,44 @@
 
         // Check if the total size exceeds 100 MB
         if (totalSize > 100 * 1024 * 1024) {
-            showPopup("The total size of files exceeds 100 MB.");
+            showPopup("The total size of files cannot exceed 100 MB.");
             return;
         }
 
-        // Validate each file and add it to the selectedFiles array
+        // Loop through new files and add them if they are valid
         newFiles.forEach(file => {
-            if (validateFile(file)) {
+            if (!validateFile(file)) {
+                showPopup("You cannot upload files larger than 25 MB.");
+            } else {
                 selectedFiles.push(file);
-                const fileItem = document.createElement('div');
-                fileItem.textContent = file.name;
 
-                const removeBtn = document.createElement('span');
-                removeBtn.textContent = '✖'; // Close icon
-                removeBtn.classList.add('remove-file');
-                removeBtn.onclick = () => {
-                    selectedFiles = selectedFiles.filter(f => f.name !== file.name);
-                    fileItem.remove(); // Remove file item from display
+                // Create a new div for each file
+                const fileBox = document.createElement('div');
+                fileBox.textContent = file.name; // Display file name
+
+                // Create the remove button
+                const removeButton = document.createElement('span');
+                removeButton.textContent = '×';
+                removeButton.className = 'remove-file';
+                removeButton.onclick = () => {
+                    selectedFiles = selectedFiles.filter(f => f !== file);
+                    fileListDisplay.removeChild(fileBox);
+                    checkFileLimit(); // Check limit after removing file
                 };
 
-                fileItem.appendChild(removeBtn);
-                fileListDisplay.appendChild(fileItem);
-            } else {
-                showPopup(`File ${file.name} exceeds the size limit of 25 MB.`);
+                fileBox.appendChild(removeButton);
+                fileListDisplay.appendChild(fileBox);
             }
         });
+    }
 
-        // Check file limit again after displaying
-        checkFileLimit();
+    function showPopup(message) {
+        document.getElementById('popup-message').innerText = message;
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
     }
 </script>
 
