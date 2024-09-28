@@ -278,34 +278,18 @@
 </script>
 
     <script>
-    const fileInput = document.getElementById('file');
     const customFileUpload = document.querySelector('.custom-file-upload');
-    let isFileDialogOpen = false;
 
-    // Function to open the file dialog
-    function openFileDialog() {
-        if (isFileDialogOpen) return; // Prevent opening if already open
-        isFileDialogOpen = true; // Set the flag to indicate the dialog is open
-        customFileUpload.style.pointerEvents = 'none'; // Disable the button
+    customFileUpload.addEventListener('click', function() {
+        // Disable the button
+        customFileUpload.style.pointerEvents = 'none'; // Disable clicks
         customFileUpload.style.opacity = '0.5'; // Change opacity to indicate it's disabled
 
-        // Open the file dialog
-        fileInput.click();
-
-        // Reset the button state after 2 seconds
+        // Re-enable the button after 1.4 seconds
         setTimeout(() => {
-            customFileUpload.style.pointerEvents = 'auto'; // Re-enable the button
+            customFileUpload.style.pointerEvents = 'auto'; // Enable clicks
             customFileUpload.style.opacity = '1'; // Reset opacity
-            isFileDialogOpen = false; // Reset the flag after timeout
-        }, 2000); // 2000 milliseconds = 2 seconds
-    }
-
-    // Attach the openFileDialog function to the custom file upload label
-    customFileUpload.addEventListener('click', openFileDialog);
-
-    // Event listener to reset the flag when files are selected
-    fileInput.addEventListener('change', () => {
-        isFileDialogOpen = false; // Reset the flag immediately if files are selected
+        }, 1400); // 1400 milliseconds = 1.4 seconds
     });
 </script>
 
