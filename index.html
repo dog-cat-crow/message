@@ -256,6 +256,9 @@
                 fileListDisplay.appendChild(fileBox); // Append to the file-list container
             }
         });
+
+        // Clear the file input to prevent the dialog from opening again
+        fileInput.value = ''; 
     }
 </script>
 
