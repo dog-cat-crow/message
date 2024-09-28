@@ -174,7 +174,7 @@
 
         <div class="file-upload">
             <label for="file">Upload Files (Optional)</label>
-            <label for="file" class="custom-file-upload" onclick="checkFileLimit()">
+            <label for="file" id="file-label" class="custom-file-upload" onclick="handleFileClick()">
                 Choose files
             </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
@@ -196,13 +196,11 @@
     }
 
     function handleFileClick() {
-        // Check if the total selected files are already 10
         if (selectedFiles.length >= 10) {
             alert("You cannot select more than 10 files.");
-            return; // Prevent file dialog from opening
+            return false; // Prevent further operation
         }
-        // Allow file input dialog to open if under 10 files
-        document.getElementById('file').click();
+        document.getElementById('file').click(); // Trigger file selection
     }
 
     function displayFiles() {
