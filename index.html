@@ -178,9 +178,8 @@
                 Choose files
             </label>
             <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
-            <p class="small-text">Maximum size per file: 25 MB<br>Maximum number of files: 10<br>Maximum size of total files: 100 MB</p>
-            <p class="small-text">Selected files:</p>
             <div id="file-list" class="file-list"></div>
+            <p class="small-text">You can upload up to 10 files with a total size of 100 MB.</p>
         </div>
 
         <button type="submit">SUBMIT</button>
@@ -218,8 +217,15 @@
 
         // Calculate the total size of new files
         let totalNewSize = 0;
+        let filesToAdd = [];
+        
         for (let i = 0; i < newFiles.length; i++) {
             totalNewSize += newFiles[i].size;
+            if (validateFile(newFiles[i])) {
+                filesToAdd.push(newFiles[i]);
+            } else {
+                alert("You cannot upload files larger than 25 MB.");
+            }
         }
 
         // Calculate the total size of existing files
@@ -231,33 +237,29 @@
             return;
         }
 
-        // Loop through new files
-        newFiles.forEach(file => {
-            if (!validateFile(file)) {
-                alert("You cannot upload files larger than 25 MB.");
-            } else {
-                selectedFiles.push(file);
+        // Loop through new files to add
+        filesToAdd.forEach(file => {
+            selectedFiles.push(file);
 
-                // Create a new div for each file
-                const fileBox = document.createElement('div');
-                fileBox.textContent = file.name; // Display file name
+            // Create a new div for each file
+            const fileBox = document.createElement('div');
+            fileBox.textContent = file.name; // Display file name
 
-                // Create the remove button
-                const removeButton = document.createElement('span');
-                removeButton.textContent = '×';
-                removeButton.className = 'remove-file';
-                removeButton.onclick = function() {
-                    // Remove the file entry and update the selectedFiles array
-                    fileBox.remove();
-                    selectedFiles = selectedFiles.filter(f => f.name !== file.name);
-                };
+            // Create the remove button
+            const removeButton = document.createElement('span');
+            removeButton.textContent = '×';
+            removeButton.className = 'remove-file';
+            removeButton.onclick = function() {
+                // Remove the file entry and update the selectedFiles array
+                fileBox.remove();
+                selectedFiles = selectedFiles.filter(f => f.name !== file.name);
+            };
 
-                fileBox.appendChild(removeButton); // Append the remove button to the file box
-                fileListDisplay.appendChild(fileBox); // Append to the file-list container
-            }
+            fileBox.appendChild(removeButton); // Append the remove button to the file box
+            fileListDisplay.appendChild(fileBox); // Append to the file-list container
         });
 
-        // Clear the file input to prevent the dialog from opening again
+        // Clear the file input after successfully adding files
         fileInput.value = ''; 
     }
 </script>
