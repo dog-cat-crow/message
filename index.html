@@ -198,7 +198,7 @@
     function checkFileLimit() {
         const fileInput = document.getElementById('file');
 
-        if (selectedFiles.length >= 10) {
+        if (selectedFiles.length > 10) {
             alert("Beware, Cutie!\nYou cannot select more than 10 files. Please try to remove some files.\nThank you!");
             fileInput.disabled = true; // Disable file input
         } else {
