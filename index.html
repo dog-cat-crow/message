@@ -153,6 +153,40 @@
                 font-size: 16px;
             }
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8); /* Black background with transparency */
+            color: white;
+        }
+
+        .modal-content {
+            background-color: #333;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .close-btn {
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -187,9 +221,26 @@
     </form>
 </div>
 
+<!-- Modal Structure -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <p id="modal-message"></p>
+        <button class="close-btn" onclick="closeModal()">OK</button>
+    </div>
+</div>
+
 <script>
     // Keeps track of the files already selected
     let selectedFiles = [];
+
+    function showModal(message) {
+        document.getElementById('modal-message').innerText = message;
+        document.getElementById('myModal').style.display = "block"; // Show modal
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = "none"; // Hide modal
+    }
 
     function validateFile(file) {
         return file.size <= 25 * 1024 * 1024; // 25 MB size check
@@ -198,8 +249,8 @@
     function checkFileLimit() {
         const fileInput = document.getElementById('file');
 
-        if (selectedFiles.length > 10) {
-            alert("Beware, Cutie!\nYou cannot select more than 10 files. Please try to remove some files.\nThank you!");
+        if (selectedFiles.length >= 10) {
+            showModal("Beware, Cutie!\nYou cannot select more than 10 files. Please try to remove some files.\nThank you!");
             fileInput.disabled = true; // Disable file input
         } else {
             fileInput.disabled = false; // Enable file input
@@ -216,7 +267,7 @@
 
         // Check if the total selected files exceed the limit of 10
         if (totalFiles > 10) {
-            alert("You cannot select more than 10 files.");
+            showModal("You cannot select more than 10 files.");
             return;
         }
 
@@ -231,14 +282,14 @@
 
         // Check if the total size exceeds 100 MB
         if (totalSize > 100 * 1024 * 1024) {
-            alert("The total size of files cannot exceed 100 MB. Please select smaller files.");
+            showModal("The total size of files cannot exceed 100 MB. Please select smaller files.");
             return;
         }
 
         // Loop through new files and add them if they are valid
         newFiles.forEach(file => {
             if (!validateFile(file)) {
-                alert("You cannot upload files larger than 25 MB.");
+                showModal("You cannot upload files larger than 25 MB.");
             } else {
                 selectedFiles.push(file);
 
@@ -268,16 +319,16 @@
     }
 </script>
 
-    <script>
+<script>
     document.getElementById('file').addEventListener('click', function(event) {
         if (selectedFiles.length >= 10) {
-            alert("You cannot select more than 10 files.");
+            showModal("You cannot select more than 10 files.");
             event.preventDefault(); // Prevent the file selector from opening
         }
     });
 </script>
 
-    <script>
+<script>
     const customFileUpload = document.querySelector('.custom-file-upload');
 
     customFileUpload.addEventListener('click', function() {
@@ -292,7 +343,6 @@
         }, 700); // 1400 milliseconds = 1.4 seconds
     });
 </script>
-
 
 </body>
 </html>
