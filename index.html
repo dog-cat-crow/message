@@ -268,5 +268,15 @@
     }
 </script>
 
+    <script>
+    document.getElementById('file').addEventListener('click', function(event) {
+        if (selectedFiles.length >= 10) {
+            alert("You cannot select more than 10 files.");
+            event.preventDefault(); // Prevent the file selector from opening
+        }
+    });
+</script>
+
+
 </body>
 </html>
