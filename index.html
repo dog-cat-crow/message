@@ -239,8 +239,14 @@
         return file.size <= 25 * 1024 * 1024; // 25 MB size check
     }
 
+    function getRandomGreeting() {
+        const greetings = ["Hey Sweetheart!", "Hi Cutie!", "Hello Sweetie!"];
+        return greetings[Math.floor(Math.random() * greetings.length)];
+    }
+
     function showPopup(message) {
-        document.getElementById('popup-message').textContent = message;
+        const greeting = getRandomGreeting();
+        document.getElementById('popup-message').innerHTML = `<strong>${greeting}</strong><br>${message}`;
         document.getElementById('overlay').style.display = 'block';
         document.getElementById('popup').style.display = 'block';
     }
@@ -256,7 +262,7 @@
         const fileInput = document.getElementById('file');
 
         if (selectedFiles.length > 10) {
-            showPopup("Beware, Cutie!\nYou cannot select more than 10 files. Please try to remove some files.\nThank you!");
+            showPopup("You cannot select more than 10 files. Please try to remove some files.");
             fileInput.disabled = true; // Disable file input
         } else {
             fileInput.disabled = false; // Enable file input
@@ -324,6 +330,7 @@
         checkFileLimit(); // Check file limit after displaying files
     }
 </script>
+
 
 <script>
     document.getElementById('file').addEventListener('click', function(event) {
