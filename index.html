@@ -56,6 +56,32 @@
             margin-bottom: 10px;
         }
 
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px; /* Adjust padding for a smaller button */
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #3b3b3b; /* Updated background color */
+            color: white; /* Updated text color */
+            margin-bottom: 10px;
+            font-size: 14px; /* Adjust font size if needed */
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
         button {
             background-color: #ff0364;
             color: white;
@@ -102,9 +128,12 @@
         <label for="contact">Your Contact (Optional)</label>
         <input id="contact" type="text" name="contact">
 
-        <label for="file" class="custom-file-upload" onclick="window.open('https://mega.nz/filerequest/CYdX7C1Toc8', '_blank'); return false;">
-            Choose files
-        </label>
+        <div class="file-upload">
+            <label for="file" class="custom-file-upload">
+                Choose files
+            </label>
+            <input id="file" type="file" name="file" accept="*/*" multiple>
+        </div>
 
         <button type="submit">SUBMIT</button>
     </form>
