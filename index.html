@@ -96,7 +96,7 @@
         input, textarea {
             font-family: 'Copperplate', sans-serif;
             width: 100%;
-            padding: 20px; /* Increased padding for larger field height */
+            padding: 0 8px; /* Left and right padding only */
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -106,9 +106,14 @@
         }
 
         textarea {
-            height: auto;
+            height: calc(3.5 * 1.2em); /* Adjust height for the first field (3.5 lines) */
             resize: vertical;
         }
+
+        #contact {
+            height: calc(2 * 1.2em); /* Adjust height for the second field (2 lines) */
+        }
+
         .file-upload {
             display: flex;
             flex-direction: column;
@@ -140,7 +145,6 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <div class="intro-board">
         <p class="intro-text">
@@ -154,7 +158,7 @@
         <textarea id="message" name="message" required></textarea>
 
         <label for="contact">Your Contact (Optional)</label>
-        <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Modified for multiple lines -->
+        <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Updated for two lines -->
 
         <div class="file-upload">
             <label>Upload Files Below</label>
