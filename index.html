@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Form Submission</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Poppins-Regular';
+            src: url('Poppins-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Poppins-SemiBold';
+            src: url('Poppins-SemiBold.ttf') format('truetype');
+        }
+
         * {
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* Prevent tap highlight color on mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: black; /* Changed to pure black */
-            font-family: 'Poppins', sans-serif;
+            background-color: black;
+            font-family: 'Poppins-SemiBold', sans-serif;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -35,27 +44,29 @@
         }
 
         .intro-board {
-            background-color: black; /* Changed to absolute black */
-            padding: 15px; /* Add padding for spacing */
-            border-radius: 8px; /* Rounded corners */
-            margin-bottom: 20px; /* Space below the rectangle */
+            background-color: black;
+            padding: 10px 12px; /* Reduced vertical and horizontal padding */
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
         .intro-text {
-            font-weight: bold;
-            margin: 10px 0; /* Reduced top and bottom margins */
+            font-family: 'Poppins-Regular', sans-serif;
+            font-size: 14px; /* Slightly smaller font size */
+            font-weight: normal;
+            margin: 10px 0;
             text-align: center;
             line-height: 1.5;
-            padding-top: 10px; /* Reduced top padding */
-            color: white; /* Changed to white text */
+            color: white;
             overflow-wrap: break-word;
         }
 
         label {
+            font-family: 'Poppins-SemiBold', sans-serif;
             font-weight: bold;
             display: block;
             margin-bottom: 10px;
-            color: black; /* Changed label text color to black */
+            color: black;
         }
 
         input[type="file"] {
@@ -65,39 +76,39 @@
         .custom-file-upload {
             display: inline-flex;
             align-items: center;
-            padding: 3px 8px; /* Adjust padding for a smaller button */
+            padding: 3px 8px;
             cursor: pointer;
             border: 1px solid #ccc;
             border-radius: 4px;
-            background-color: #3b3b3b; /* Updated background color */
-            color: white; /* Updated text color */
+            background-color: #3b3b3b;
+            color: white;
             margin-bottom: 10px;
-            font-size: 14px; /* Adjust font size if needed */
+            font-size: 14px;
             align-items: center;
         }
 
         .custom-file-upload img {
-            width: 20px; /* Adjust icon size */
-            height: 20px; /* Maintain aspect ratio */
-            margin-right: 8px; /* Space between icon and text */
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
         }
 
         input, textarea {
+            font-family: 'Copperplate', sans-serif;
             width: 100%;
-            padding: 10px;
+            padding: 20px; /* Increased padding for larger field height */
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-            background-color: #2e2e2e; /* Changed to #2e2e2e for input fields */
-            color: white; /* Change text color to white for better contrast */
+            background-color: #2e2e2e;
+            color: white;
         }
 
         textarea {
             height: auto;
             resize: vertical;
         }
-
         .file-upload {
             display: flex;
             flex-direction: column;
@@ -120,7 +131,7 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 16px;
-            margin-top: 10px; /* Space above the submit button */
+            margin-top: 10px;
         }
 
         button:hover {
@@ -143,7 +154,7 @@
         <textarea id="message" name="message" required></textarea>
 
         <label for="contact">Your Contact (Optional)</label>
-        <input id="contact" class="two-line" type="text" name="contact">
+        <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Modified for multiple lines -->
 
         <div class="file-upload">
             <label>Upload Files Below</label>
