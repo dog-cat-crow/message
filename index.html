@@ -205,6 +205,8 @@
     </div>
 
     <form action="https://formspree.io/f/mzzpnpoz" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="file_url" id="file_url"> <!-- Hidden field to store uploaded file URL -->
+
         <label for="message">Please type Your Message here (Required)</label>
         <textarea id="message" name="message" required></textarea>
 
