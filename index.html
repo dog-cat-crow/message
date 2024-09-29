@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"> <!-- Prevent zooming -->
     <title>Form Submission</title>
     <style>
         @font-face {
@@ -18,6 +18,7 @@
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            user-select: none; /* Disable text selection */
         }
 
         body {
@@ -103,6 +104,7 @@
             box-sizing: border-box;
             background-color: #2e2e2e;
             color: white;
+            touch-action: manipulation; /* Prevent zooming on input fields */
         }
 
         textarea {
@@ -145,32 +147,31 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="intro-board">
-        <p class="intro-text">
-            Hello, please type your message below. I'll see your message once you submit it here. 
-            A notification will be instantly received by me with the message you've submitted.
-        </p>
-    </div>
-
-    <form action="https://formspree.io/f/mzzpnpoz" method="POST">
-        <label for="message">Please type Your Message here (Required)</label>
-        <textarea id="message" name="message" required></textarea>
-
-        <label for="contact">Your Contact (Optional)</label>
-        <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Updated for two lines -->
-
-        <div class="file-upload">
-            <label>Upload Files Below</label>
-            <label for="file" class="custom-file-upload" onclick="window.open('https://mega.nz/filerequest/CYdX7C1Toc8', '_blank')">
-                <img src="mega.png" alt="Upload Icon"> Upload Now
-            </label>
-            <input id="file" type="file" name="file" accept="*/*" multiple>
+    <div class="container">
+        <div class="intro-board">
+            <p class="intro-text">
+                Hello, please type your message below. I'll see your message once you submit it here. 
+                A notification will be instantly received by me with the message you've submitted.
+            </p>
         </div>
 
-        <button type="submit">SUBMIT</button>
-    </form>
-</div>
+        <form action="https://formspree.io/f/mzzpnpoz" method="POST">
+            <label for="message">Please type Your Message here (Required)</label>
+            <textarea id="message" name="message" required></textarea>
 
+            <label for="contact">Your Contact (Optional)</label>
+            <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Updated for two lines -->
+
+            <div class="file-upload">
+                <label>Upload Files Below</label>
+                <label for="file" class="custom-file-upload" onclick="window.open('https://mega.nz/filerequest/CYdX7C1Toc8', '_blank')">
+                    <img src="mega.png" alt="Upload Icon"> Upload Now
+                </label>
+                <input id="file" type="file" name="file" accept="*/*" multiple>
+            </div>
+
+            <button type="submit">SUBMIT</button>
+        </form>
+    </div>
 </body>
 </html>
