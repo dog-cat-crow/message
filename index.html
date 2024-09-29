@@ -108,12 +108,12 @@
         }
 
         textarea {
-            height: calc(3.5 * 1.2em);
+            height: calc(3.5 * 1.2em); /* Height for the first field */
             resize: vertical;
         }
 
         #contact {
-            height: calc(2 * 1.2em);
+            height: calc(1.5 * 1.2em); /* Updated height for contact field */
         }
 
         .file-upload {
@@ -160,7 +160,7 @@
             <textarea id="message" name="message" required></textarea>
 
             <label for="contact">Your Contact (Optional)</label>
-            <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Updated for two lines -->
+            <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Updated for half increased height -->
 
             <div class="file-upload">
                 <label>Upload Files Below</label>
