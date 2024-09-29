@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"> <!-- Prevent zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
     <title>Form Submission</title>
     <style>
         @font-face {
@@ -18,7 +18,7 @@
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            user-select: none; /* Disable text selection */
+            user-select: none;
         }
 
         body {
@@ -97,23 +97,23 @@
         input, textarea {
             font-family: 'Copperplate', sans-serif;
             width: 100%;
-            padding: 10px 15px; /* Set vertical padding to 10px and horizontal to 15px */
+            padding: 10px 15px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
             background-color: #2e2e2e;
             color: white;
-            touch-action: manipulation; /* Prevent zooming on input fields */
+            touch-action: manipulation;
         }
 
         textarea {
-            height: calc(3.5 * 1.2em); /* Height for the first field */
+            height: calc(3.5 * 1.2em);
             resize: vertical;
         }
 
         #contact {
-            height: calc(1.5 * 1.2em); /* Updated height for contact field */
+            height: calc(1.5 * 1.2em);
         }
 
         .file-upload {
@@ -160,7 +160,7 @@
             <textarea id="message" name="message" required></textarea>
 
             <label for="contact">Your Contact (Optional)</label>
-            <textarea id="contact" class="two-line" name="contact"></textarea> <!-- Updated for half increased height -->
+            <textarea id="contact" class="two-line" name="contact"></textarea>
 
             <div class="file-upload">
                 <label>Upload Files Below</label>
