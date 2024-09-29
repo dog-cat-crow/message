@@ -359,20 +359,22 @@
 
     <script>
     const cloudinaryWidget = cloudinary.createUploadWidget(
-        {
-            cloudName: 'YOUR_CLOUD_NAME',
-            uploadPreset: 'YOUR_UPLOAD_PRESET',
-        },
-        (error, result) => {
-            if (!error && result && result.event === "success") {
-                document.getElementById('output').innerHTML = `<a href="${result.info.secure_url}" target="_blank">View Uploaded File</a>`;
-            }
+    {
+        cloudName: 'YOUR_CLOUD_NAME',
+        uploadPreset: 'YOUR_UPLOAD_PRESET',
+    },
+    (error, result) => {
+        if (!error && result && result.event === "success") {
+            document.getElementById('file_url').value = result.info.secure_url;
+            document.getElementById('output').innerHTML = `<a href="${result.info.secure_url}" target="_blank">View Uploaded File</a>`;
         }
-    );
+    }
+);
 
-    document.getElementById('upload-widget').addEventListener('click', () => {
-        cloudinaryWidget.open();
-    });
+document.getElementById('upload-widget').addEventListener('click', () => {
+    cloudinaryWidget.open();
+});
+
 </script>
 
 
