@@ -71,6 +71,13 @@
             color: white; /* Updated text color */
             margin-bottom: 10px;
             font-size: 14px; /* Adjust font size if needed */
+            align-items: center;
+        }
+
+        .custom-file-upload img {
+            width: 20px; /* Adjust icon size */
+            height: 20px; /* Maintain aspect ratio */
+            margin-right: 8px; /* Space between icon and text */
         }
 
         input, textarea {
@@ -82,6 +89,24 @@
             box-sizing: border-box;
         }
 
+        textarea {
+            height: auto;
+            resize: vertical;
+        }
+
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .small-text {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
         button {
             background-color: #ff0364;
             color: white;
@@ -91,23 +116,11 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 16px;
+            margin-top: 10px; /* Space above the submit button */
         }
 
         button:hover {
             background-color: #e50358;
-        }
-
-        @media (max-width: 600px) {
-            .intro-text {
-                font-size: 1rem;
-                padding: 0 10px;
-                line-height: 1.4;
-            }
-
-            button {
-                padding: 10px;
-                font-size: 16px;
-            }
         }
     </style>
 </head>
@@ -126,12 +139,12 @@
         <textarea id="message" name="message" required></textarea>
 
         <label for="contact">Your Contact (Optional)</label>
-        <input id="contact" type="text" name="contact">
+        <input id="contact" class="two-line" type="text" name="contact">
 
-        <label for="file">Upload Files Below</label> <!-- New label added here -->
         <div class="file-upload">
-            <label for="file" class="custom-file-upload">
-                Choose files
+            <label>Upload Files Below</label>
+            <label for="file" class="custom-file-upload" onclick="window.open('https://mega.nz/filerequest/CYdX7C1Toc8', '_blank')">
+                <img src="mega.png" alt="Upload Icon"> Upload Now
             </label>
             <input id="file" type="file" name="file" accept="*/*" multiple>
         </div>
