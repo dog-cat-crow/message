@@ -395,33 +395,12 @@
     }
 </style>
 
+
 <div id="overlay"></div>
 <div id="popup">
-    <p id="popup-message" style="font-weight: bold;"></p>
-    <p>Your message goes here.</p> <!-- This is the constant normal text -->
-    <button id="popup-ok">OKAY</button>
+    <p id="popup-message"></p>
+    <button id="popup-ok">Okay</button>
 </div>
-
-<script>
-    function showPopup() {
-        const messages = ["Hey Sweetheart!", "Hello Sweetie!", "Hi Cutie!"];
-        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        document.getElementById("popup-message").innerText = randomMessage; // Set the random greeting message
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("popup").style.display = "block";
-    }
-
-    // Close popup when the OKAY button is clicked
-    document.getElementById("popup-ok").onclick = function() {
-        closePopup();
-    };
-
-    function closePopup() {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("popup").style.display = "none";
-    }
-</script>
 
 </body>
 </html>
-
