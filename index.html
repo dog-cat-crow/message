@@ -214,15 +214,12 @@
         <input id="contact" class="two-line" type="text" name="contact">
 
         <div class="file-upload">
-            <label for="file">Upload Files (Optional)</label>
-            <label for="file" class="custom-file-upload" onclick="checkFileLimit()">
-                Choose files
-            </label>
-            <input id="file" type="file" name="file" accept="*/*" multiple onchange="displayFiles()">
-            <p class="small-text">Maximum size per file: 25 MB<br>Maximum number of files: 10<br>Maximum size of total files: 100 MB</p>
-            <p class="small-text">Selected files:</p>
-            <div id="file-list" class="file-list"></div>
-        </div>
+    <label>Upload Files (Optional)</label>
+    <button type="button" id="upload-widget" class="custom-file-upload">Choose files</button>
+    <div id="output"></div> <!-- Output container for uploaded file link -->
+    <input type="hidden" name="file_url" id="file_url"> <!-- Hidden field to store uploaded file URL -->
+</div>
+
 
         <button type="submit">SUBMIT</button>
     </form>
